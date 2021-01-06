@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Route details: "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<!-- add something for giving beta, maybe as a comment -->
+  <p>{{ post['body'] }}</p>
+  <hr>
+{% endblock %}

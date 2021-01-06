@@ -1,0 +1,4 @@
+include climbr/schema.sql
+graft climbr/static
+graft climbr/templates
+global-exclude *.pyc

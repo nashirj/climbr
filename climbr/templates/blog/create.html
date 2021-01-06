@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='wall.css') }}"/>
+
+{% block header %}
+  <h1>{% block title %}New Route{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+
+    <label for="title">Name</label>
+    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    <label for="body">Description (starting holds, finishing holds, wall angle, etc)</label>
+    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+
+    {# have some way of storing holds that are on the wall and set all other checkboxes to disabled #}
+
+    {# simply serialize the array and store it in text field! #}
+    <label>Legal holds</label>
+      <div class="wall">
+        <div class="wall-holds">
+          {% set breaks = [17, 9] %}
+          {% for i in range(20,0,-1):%}
+            {% for j in range(16,0,-1):%}
+              {% set my_str = i ~ "," ~ j %}
+              {# {% if i == j %}
+                <input disabled type="checkbox" id="{{ my_str }}" name="{{ my_str }}" value="{{ my_str }}"> #}
+              {# {% else %} #}
+              <input type="checkbox" id="{{ my_str }}" name="{{ my_str }}" value="{{ my_str }}">
+              {# {% endif %} #}
+            {% endfor %}
+            {# {% for j in range(16,0,-1):%}
+              {% set my_str = i ~ "," ~ j %}
+              <label for="{{ my_str }}">{{ my_str }}</label>
+            {% endfor %} #}
+            {% if i in breaks %}
+              </div>
+              <hr>
+              <div class="wall-holds">
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <input type="submit" value="Save">
+    </form>
+{% endblock %}
