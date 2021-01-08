@@ -8,4 +8,32 @@
 <!-- add something for giving beta, maybe as a comment -->
   <p>{{ post['body'] }}</p>
   <hr>
+  <div class="wall">
+    <div class="wall-holds">
+      {% set breaks = [17, 9] %}
+      {% for i in range(20,0,-1):%}
+        {% for j in range(1,17):%}
+          {% set my_str = i ~ "," ~ j %}
+          {# using this SO post: https://stackoverflow.com/questions/9486393/jinja2-change-the-value-of-a-variable-inside-a-loop as reference #}
+          {% set vars = {'checked': False} %}
+          {% for row, col in holds %}
+            {% if row == i and col == j %}
+              {% if vars.update({'checked': True}) %}{% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if vars.checked %}
+            <input checked disabled type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
+          {% else %}
+            <input disabled type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
+          {% endif %}
+
+        {% endfor %}
+        {% if i in breaks %}
+          </div>
+          <hr>
+          <div class="wall-holds">
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

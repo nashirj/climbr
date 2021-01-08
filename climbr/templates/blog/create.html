@@ -25,9 +25,9 @@
             {% for j in range(16,0,-1):%}
               {% set my_str = i ~ "," ~ j %}
               {# {% if i == j %}
-                <input disabled type="checkbox" id="{{ my_str }}" name="{{ my_str }}" value="{{ my_str }}"> #}
+                <input disabled type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}"> #}
               {# {% else %} #}
-              <input type="checkbox" id="{{ my_str }}" name="{{ my_str }}" value="{{ my_str }}">
+              <input type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
               {# {% endif %} #}
             {% endfor %}
             {# {% for j in range(16,0,-1):%}
