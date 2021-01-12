@@ -12,8 +12,7 @@ class Post(db.Model):
     climbing_route = Column(String(), nullable=False)
     poster_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     created_date = Column(DateTime(timezone=True), server_default=func.now())
-    # ForeignKeyConstraint(["poster_id"],["user.id"], nullable=False)
-
+    
     def __init__(self, title, body, climbing_route, poster_id):
         self.title = title
         self.body = body
@@ -22,14 +21,3 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
-
-
-# CREATE TABLE POST (
-#     id INTEGER PRIMARY KEY AUTOINCREMENT,
-#     author_id INTEGER NOT NULL,
-#     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-#     title TEXT NOT NULL,
-#     body TEXT NOT NULL,
-#     climbing_route TEXT NOT NULL,
-#     FOREIGN KEY (author_id) REFERENCES user (id)
-# );

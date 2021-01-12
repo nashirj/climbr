@@ -16,18 +16,7 @@ from sqlalchemy import text
 
 @bp.route('/')
 def index():
-    # db = get_db()
-    # blah = db.session.query(User).order_by
-    users = db.session.query(User).all()
-    print(users)
     posts = db.session.query(Post).all()
-    print(posts)
-    
-    # posts = db.execute(
-    #     'SELECT p.id, title, body, climbing_route, created, author_id, username'
-    #     ' FROM post p JOIN user u ON p.author_id = u.id'
-    #     ' ORDER BY created DESC'
-    # ).fetchall()
 
     return render_template('blog/index.html', posts=posts)
 
@@ -40,7 +29,6 @@ def create():
         error = None
 
         holds = [request.form[key] for key in request.form.keys() if "hold" in key]
-        # TODO: update this to parse form
         climbing_route = "|".join(holds)
         print(climbing_route)
 
@@ -50,35 +38,26 @@ def create():
         if error is not None:
             flash(error)
         else:
-            # db = get_db()
-            db.execute(
-                'INSERT INTO post (title, body, author_id, climbing_route)'
-                ' VALUES (?, ?, ?, ?)',
-                (title, body, g.user['id'], climbing_route)
-            )
-            db.commit()
+            post = Post(title=title, body=body, poster_id=g.user.id, climbing_route=climbing_route)
+            db.session.add(post)
+            db.session.commit()
             return redirect(url_for('blog.index'))
 
     return render_template('blog/create.html')
 
 
 def get_post(uid, check_author=True):
-    post = db.execute(
-        'SELECT p.id, title, body, climbing_route, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' WHERE p.id = ?',
-        (uid,)
-    ).fetchone()
-
+    post = db.session.query(Post).filter_by(poster_id=uid).first()
+    
     if post is None:
         abort(404, "Post id {0} doesn't exist.".format(id))
 
-    if check_author and post['author_id'] != g.user['id']:
+    if check_author and post.poster_id != g.user.id:
         abort(403)
 
     holds = []
-    if post['climbing_route']:
-        hold_strs = post['climbing_route'].split('|')
+    if post.climbing_route:
+        hold_strs = post.climbing_route.split('|')
         hold_indices = [indices.split(',') for indices in hold_strs]
         holds = [[int(row),int(col)] for row, col in hold_indices]
         
@@ -93,8 +72,10 @@ def update(id):
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
-        climbing_route = ""
 
+        holds = [request.form[key] for key in request.form.keys() if "hold" in key]
+        climbing_route = "|".join(holds)
+        
         error = None
 
         if not title:
@@ -103,13 +84,10 @@ def update(id):
         if error is not None:
             flash(error)
         else:
-            # db = get_db()
-            db.execute(
-                'UPDATE post SET title = ?, body = ?, climbing_route = ?'
-                ' WHERE id = ?',
-                (title, body, climbing_route, id)
-            )
-            db.commit()
+            post.title = title
+            post.body = body
+            post.climbing_route = climbing_route
+            db.session.commit()
             return redirect(url_for('blog.index'))
 
     return render_template('blog/update.html', post=post)
@@ -117,10 +95,9 @@ def update(id):
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
-    get_post(id)
-    # db = get_db()
-    db.execute('DELETE FROM post WHERE id = ?', (id,))
-    db.commit()
+    post, _ = get_post(id)
+    db.session.delete(post)
+    db.session.commit()
     return redirect(url_for('blog.index'))
 
 

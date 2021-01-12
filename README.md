@@ -1,8 +1,6 @@
 # Climbr
 
-This project is based off of the [palletsprojects Flask tutorial](https://flask.palletsprojects.com/en/1.1.x/tutorial/)
-
-Run the command `flask init-db` from the top-level dir to initialize/reset the database.
+This project is based off of the [palletsprojects Flask tutorial](https://flask.palletsprojects.com/en/1.1.x/tutorial/). The code was updated to use a Postgres database following this [real python tutorial](https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/)
 
 ---
 ## TODO
@@ -13,6 +11,6 @@ Run the command `flask init-db` from the top-level dir to initialize/reset the d
 - make labels for checkboxes visible by pressing button
 - show editable grid of holds on the update page
 - show only holds that are on current configuration of the wall
-
-
-https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
+- # TODO: display/save the old route when updating
+- implement filtering by route difficulty
+- implement uploading image: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
