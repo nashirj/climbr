@@ -4,7 +4,8 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from climbr.auth import login_required
-from climbr.db import get_db
+
+from app import db
 
 bp = Blueprint('blog', __name__)
 

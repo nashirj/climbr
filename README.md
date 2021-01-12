@@ -13,3 +13,6 @@ Run the command `flask init-db` from the top-level dir to initialize/reset the d
 - make labels for checkboxes visible by pressing button
 - show editable grid of holds on the update page
 - show only holds that are on current configuration of the wall
+
+
+https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
