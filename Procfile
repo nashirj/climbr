@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn climbr/__init__:app
