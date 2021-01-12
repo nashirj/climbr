@@ -3,7 +3,7 @@ import os
 from flask import Flask
 
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 
 test_config = None
 
