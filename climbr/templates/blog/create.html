@@ -16,7 +16,6 @@
 
     {# have some way of storing holds that are on the wall and set all other checkboxes to disabled #}
 
-    {# simply serialize the array and store it in text field! #}
     <label>Legal holds</label>
       <div class="wall">
         <div class="wall-holds">
@@ -30,10 +29,6 @@
               <input type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
               {# {% endif %} #}
             {% endfor %}
-            {# {% for j in range(16,0,-1):%}
-              {% set my_str = i ~ "," ~ j %}
-              <label for="{{ my_str }}">{{ my_str }}</label>
-            {% endfor %} #}
             {% if i in breaks %}
               </div>
               <hr>
