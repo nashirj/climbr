@@ -18,6 +18,10 @@ test_config = None
 ### that shouldn't be commited to VCS, like DB and config secrets
 app = Flask(__name__, instance_relative_config=True)
 
+app.config.from_object(os.environ['APP_SETTINGS'])
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 # ## set some default configuration that the app will use
 # ### SECRET_KEY is used to keep data safe. should be overridden
@@ -49,11 +53,8 @@ except OSError:
 def hello():
     return f'Hello, World!'
 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://climbrdb"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-# migrate = Migrate(app, db)
+from climbr.models.user import User
+from climbr.models.post import Post
 
 
 # from climbr import auth
