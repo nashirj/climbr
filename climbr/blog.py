@@ -9,15 +9,25 @@ from app import db
 
 bp = Blueprint('blog', __name__)
 
+from climbr.models.user import User
+from climbr.models.post import Post
+from sqlalchemy import text
+
 
 @bp.route('/')
 def index():
-    db =  get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, climbing_route, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
+    # db = get_db()
+    # blah = db.session.query(User).order_by
+    users = db.session.query(User).all()
+    print(users)
+    posts = db.session.query(Post).all()
+    print(posts)
+    
+    # posts = db.execute(
+    #     'SELECT p.id, title, body, climbing_route, created, author_id, username'
+    #     ' FROM post p JOIN user u ON p.author_id = u.id'
+    #     ' ORDER BY created DESC'
+    # ).fetchall()
 
     return render_template('blog/index.html', posts=posts)
 
@@ -40,7 +50,7 @@ def create():
         if error is not None:
             flash(error)
         else:
-            db = get_db()
+            # db = get_db()
             db.execute(
                 'INSERT INTO post (title, body, author_id, climbing_route)'
                 ' VALUES (?, ?, ?, ?)',
@@ -53,7 +63,7 @@ def create():
 
 
 def get_post(uid, check_author=True):
-    post = get_db().execute(
+    post = db.execute(
         'SELECT p.id, title, body, climbing_route, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
@@ -93,7 +103,7 @@ def update(id):
         if error is not None:
             flash(error)
         else:
-            db = get_db()
+            # db = get_db()
             db.execute(
                 'UPDATE post SET title = ?, body = ?, climbing_route = ?'
                 ' WHERE id = ?',
@@ -108,7 +118,7 @@ def update(id):
 @login_required
 def delete(id):
     get_post(id)
-    db = get_db()
+    # db = get_db()
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('blog.index'))

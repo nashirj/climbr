@@ -17,7 +17,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        # db = get_db()
         error = None
 
         print(f"uname: {username}")
@@ -50,7 +50,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        # db = get_db()
         error = None
 
         user = db.execute(

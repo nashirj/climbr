@@ -57,13 +57,13 @@ from climbr.models.user import User
 from climbr.models.post import Post
 
 
-# from climbr import auth
-# app.register_blueprint(auth.bp)
+from climbr import auth
+app.register_blueprint(auth.bp)
 
 
-# from climbr import blog
-# app.register_blueprint(blog.bp)
-# app.add_url_rule('/', endpoint='index')
+from climbr import blog
+app.register_blueprint(blog.bp)
+app.add_url_rule('/', endpoint='index')
 
 
 # allows printing debug statements from the jinja template
