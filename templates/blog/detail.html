@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Route details: "{{ post['title'] }}"{% endblock %}</h1>
+  <h1>{% block title %}Route details: "{{ post['title'] }}", posted by <i>{{ post['poster_username'] }}</i>{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}

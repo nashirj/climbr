@@ -10,13 +10,15 @@ class Post(db.Model):
     title = Column(String(), nullable=False)
     body = Column(String(), nullable=False)
     climbing_route = Column(String(), nullable=False)
+    poster_username = Column(String(), nullable=False)
     poster_uid = Column(Integer, ForeignKey("user.uid"), nullable=False)
     created_date = Column(DateTime(timezone=True), server_default=func.now())
     
-    def __init__(self, title, body, climbing_route, poster_uid):
+    def __init__(self, title, body, climbing_route, poster_username, poster_uid):
         self.title = title
         self.body = body
         self.climbing_route = climbing_route
+        self.poster_username = poster_username
         self.poster_uid = poster_uid
 
     def __repr__(self):

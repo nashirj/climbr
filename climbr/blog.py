@@ -18,6 +18,9 @@ from sqlalchemy import text
 def index():
     posts = db.session.query(Post).all()
 
+    for post in posts:
+        print(post.poster_username)
+
     return render_template('blog/index.html', posts=posts)
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -38,7 +41,7 @@ def create():
         if error is not None:
             flash(error)
         else:
-            post = Post(title=title, body=body, poster_uid=g.user.uid, climbing_route=climbing_route)
+            post = Post(title=title, body=body, poster_username=g.user.username, poster_uid=g.user.uid, climbing_route=climbing_route)
             db.session.add(post)
             db.session.commit()
             # print("post ", title ,", uid: ", post.uid)
