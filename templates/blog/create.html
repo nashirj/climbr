@@ -17,26 +17,26 @@
     {# have some way of storing holds that are on the wall and set all other checkboxes to disabled #}
 
     <label>Legal holds</label>
-      <div class="wall">
-        <div class="wall-holds">
-          {% set breaks = [3, 11] %}
-          {% for i in range(20):%}
-            {% for j in range(16):%}
-              {% set my_str = i ~ "," ~ j %}
-              {# {% if i == j %}
-                <input disabled type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}"> #}
-              {# {% else %} #}
-              <input type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
-              {# {% endif %} #}
-            {% endfor %}
-            {% if i in breaks %}
-              </div>
-              <hr>
-              <div class="wall-holds">
-            {% endif %}
+    <div class="wall">
+      <div class="wall-holds">
+        {% set breaks = [3, 11] %}
+        {% for i in range(20):%}
+          {% for j in range(16):%}
+            {% set my_str = i ~ "," ~ j %}
+            {# {% if i == j %}
+              <input disabled type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}"> #}
+            {# {% else %} #}
+            <input type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
+            {# {% endif %} #}
           {% endfor %}
-        </div>
+          {% if i in breaks %}
+            </div>
+            <hr>
+            <div class="wall-holds">
+          {% endif %}
+        {% endfor %}
       </div>
-      <input type="submit" value="Save">
-    </form>
+    </div>
+    <input type="submit" value="Save">
+  </form>
 {% endblock %}

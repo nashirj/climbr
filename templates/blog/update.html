@@ -11,10 +11,39 @@
       value="{{ request.form['title'] or post['title'] }}" required>
     <label for="body">Body</label>
     <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+    <label>Legal holds</label>
+    <div class="wall">
+      <div class="wall-holds">
+        {% set breaks = [3, 11] %}
+        {% for i in range(20):%}
+          {% for j in range(16):%}
+            {% set my_str = i ~ "," ~ j %}
+            {# using this SO post: https://stackoverflow.com/questions/9486393/jinja2-change-the-value-of-a-variable-inside-a-loop as reference #}
+            {% set vars = {'checked': False} %}
+            {% for row, col in holds %}
+              {% if row == i and col == j %}
+                {% if vars.update({'checked': True}) %}{% endif %}
+              {% endif %}
+            {% endfor %}
+            {% if vars.checked %}
+              <input checked type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
+            {% else %}
+              <input type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
+            {% endif %}
+
+          {% endfor %}
+          {% if i in breaks %}
+            </div>
+            <hr>
+            <div class="wall-holds">
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
     <input type="submit" value="Save">
   </form>
   <hr>
-  <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+  <form action="{{ url_for('blog.delete', uid=post['uid']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
 {% endblock %}

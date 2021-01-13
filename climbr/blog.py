@@ -91,7 +91,7 @@ def update(uid):
             db.session.commit()
             return redirect(url_for('blog.index'))
 
-    return render_template('blog/update.html', post=post)
+    return render_template('blog/update.html', post=post, holds=holds)
 
 @bp.route('/<int:uid>/delete', methods=('POST',))
 @login_required
