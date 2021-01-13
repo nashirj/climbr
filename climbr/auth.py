@@ -56,7 +56,7 @@ def login():
 
         if error is None:
             session.clear()
-            session['user_id'] = user.id
+            session['user_id'] = user.uid
             return redirect(url_for('index'))
 
         flash(error)
@@ -71,7 +71,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = db.session.query(User).filter_by(id=user_id).first()
+        g.user = db.session.query(User).filter_by(uid=user_id).first()
 
 @bp.route('/logout')
 def logout():

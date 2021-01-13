@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, DateTime, String
 class User(db.Model):
     __tablename__ = 'user'
 
-    id = Column(Integer, primary_key=True)
+    uid = Column(Integer, primary_key=True, nullable=False)
     username = Column(String())
     password = Column(String())
     created_date = Column(DateTime(timezone=True), server_default=func.now())
@@ -16,4 +16,4 @@ class User(db.Model):
         self.password = password
 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return '<uid {}>'.format(self.uid)

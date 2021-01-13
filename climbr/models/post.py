@@ -6,18 +6,18 @@ from sqlalchemy import Column, Integer, DateTime, String, ForeignKey
 class Post(db.Model):
     __tablename__ = 'post'
 
-    id = Column(Integer, primary_key=True)
+    uid = Column(Integer, primary_key=True, nullable=False)
     title = Column(String(), nullable=False)
     body = Column(String(), nullable=False)
     climbing_route = Column(String(), nullable=False)
-    poster_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    poster_uid = Column(Integer, ForeignKey("user.uid"), nullable=False)
     created_date = Column(DateTime(timezone=True), server_default=func.now())
     
-    def __init__(self, title, body, climbing_route, poster_id):
+    def __init__(self, title, body, climbing_route, poster_uid):
         self.title = title
         self.body = body
         self.climbing_route = climbing_route
-        self.poster_id = poster_id
+        self.poster_uid = poster_uid
 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return '<uid {}>'.format(self.uid)
