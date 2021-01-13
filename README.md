@@ -1,5 +1,7 @@
 # Climbr
 
+A "staging" version of the app is available at https://climbr-stage.herokuapp.com and a "production" version is available at https://climbr-pro.herokuapp.com
+
 This project is based off of the [palletsprojects Flask tutorial](https://flask.palletsprojects.com/en/1.1.x/tutorial/). The code was updated to use a Postgres database following this [real python tutorial](https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/)
 
 ---

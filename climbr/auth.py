@@ -12,6 +12,8 @@ from climbr.models.user import User
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+approved_users=['alden', 'nashir', 'evan']
+
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
@@ -23,6 +25,8 @@ def register():
 
         if not username:
             error = 'Username is required.'
+        elif username not in approved_users:
+            error = 'Sorry, you are not currently approved to sign up for this app.'
         elif not password:
             error = 'Password is required.'
         elif db.session.query(User).filter_by(username=username).first() is not None:
@@ -32,6 +36,9 @@ def register():
             user = User(username=username, password=generate_password_hash(password))
             db.session.add(user)
             db.session.commit()
+
+            flash("Sign up successful - please log in.")
+
             return redirect(url_for('auth.login'))
 
         flash(error)
@@ -50,7 +57,7 @@ def login():
         user = db.session.query(User).filter_by(username=username).first()
 
         if user is None:
-            error = 'Incorrect username.'
+            error = 'No user with that username.'
         elif not check_password_hash(user.password, password):
             error = 'Incorrect password.'
 
