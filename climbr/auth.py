@@ -12,6 +12,7 @@ from climbr.models.user import User
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+# change this to emails and do email verification
 approved_users=['alden', 'nashir', 'evan']
 
 @bp.route('/register', methods=('GET', 'POST'))

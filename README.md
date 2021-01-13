@@ -16,3 +16,6 @@ This project is based off of the [palletsprojects Flask tutorial](https://flask.
 - # TODO: display/save the old route when updating
 - implement filtering by route difficulty
 - implement uploading image: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
+- implement email verification: https://realpython.com/handling-email-confirmation-in-flask/
+- get opencv working on heroku (https://stackoverflow.com/questions/49469764/how-to-use-opencv-with-heroku)
+- figure out how to fix climbr-pro so that app can be deployed there
