@@ -13,9 +13,15 @@ This project is based off of the [palletsprojects Flask tutorial](https://flask.
 - make labels for checkboxes visible by pressing button
 - show editable grid of holds on the update page
 - show only holds that are on current configuration of the wall
-- # TODO: display/save the old route when updating
 - implement filtering by route difficulty
+- add route difficulty to schema
 - implement uploading image: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
 - implement email verification: https://realpython.com/handling-email-confirmation-in-flask/
 - get opencv working on heroku (https://stackoverflow.com/questions/49469764/how-to-use-opencv-with-heroku)
 - figure out how to fix climbr-pro so that app can be deployed there
+- fix climbr so that edit doesn't show if the user didn't post that posting
+
+- include new javascript code on create and view pages
+	- https://stackoverflow.com/questions/4855430/how-can-i-send-a-variable-to-a-form-using-this-javascript-function
+	- https://stackoverflow.com/questions/11178426/how-can-i-pass-data-from-flask-to-javascript-in-a-template
+- add feature to upload/download route data
