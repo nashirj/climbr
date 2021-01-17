@@ -13,13 +13,11 @@ from climbr.models.user import User
 from climbr.models.post import Post
 from sqlalchemy import text
 
+import json
 
 @bp.route('/')
 def index():
     posts = db.session.query(Post).all()
-
-    for post in posts:
-        print(post.poster_username)
 
     return render_template('blog/index.html', posts=posts)
 
@@ -31,9 +29,7 @@ def create():
         body = request.form['body']
         error = None
 
-        holds = [request.form[key] for key in request.form.keys() if "hold" in key]
-        climbing_route = "|".join(holds)
-        # print(climbing_route)
+        climbing_route = request.form['holds']
 
         if not title:
             error = 'Title is required.'
@@ -61,9 +57,7 @@ def get_post(uid, check_author=True):
 
     holds = []
     if post.climbing_route:
-        hold_strs = post.climbing_route.split('|')
-        hold_indices = [indices.split(',') for indices in hold_strs]
-        holds = [[int(row),int(col)] for row, col in hold_indices]
+        holds = json.loads(post.climbing_route)
         
     return post, holds
 
@@ -77,8 +71,9 @@ def update(uid):
         title = request.form['title']
         body = request.form['body']
 
-        holds = [request.form[key] for key in request.form.keys() if "hold" in key]
-        climbing_route = "|".join(holds)
+        climbing_route = request.form['holds']
+
+        print(climbing_route)
         
         error = None
 

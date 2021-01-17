@@ -8,32 +8,41 @@
 <!-- add something for giving beta, maybe as a comment -->
   <p>{{ post['body'] }}</p>
   <hr>
-  <div class="wall">
-    <div class="wall-holds">
-      {% set breaks = [3, 11] %}
-      {% for i in range(20):%}
-        {% for j in range(16):%}
-          {% set my_str = i ~ "," ~ j %}
-          {# using this SO post: https://stackoverflow.com/questions/9486393/jinja2-change-the-value-of-a-variable-inside-a-loop as reference #}
-          {% set vars = {'checked': False} %}
-          {% for row, col in holds %}
-            {% if row == i and col == j %}
-              {% if vars.update({'checked': True}) %}{% endif %}
-            {% endif %}
-          {% endfor %}
-          {% if vars.checked %}
-            <input checked disabled type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
-          {% else %}
-            <input disabled type="checkbox" id="{{ my_str }}" name="hold|{{ my_str }}" value="{{ my_str }}">
-          {% endif %}
+  
+  <canvas id="canvas"></canvas>
 
-        {% endfor %}
-        {% if i in breaks %}
-          </div>
-          <hr>
-          <div class="wall-holds">
-        {% endif %}
-      {% endfor %}
-    </div>
   </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    var canvas = document.getElementById("canvas"),
+    ctx = canvas.getContext("2d");
+
+    var background = new Image();
+    background.src = "{{ url_for('static', filename='images/1_13_21_wall.png') }}";
+
+    var c = canvas.getContext("2d"),
+        boxHeight = -1,
+        boxWidth = -1,
+        rows = 20,
+        cols = 16;
+    canvas.addEventListener('click', handleClick);
+
+    background.onload = function() {
+        canvas.width = background.width;
+        canvas.height = background.height;
+        boxHeight = canvas.height/20;
+        boxWidth = canvas.width/16;
+        c = canvas.getContext("2d");
+        ctx.drawImage(background,0,0);
+        var holds = JSON.parse('{{ holds }}')
+        for (i = 0; i < holds.length; i++) {
+          var y = holds[i][0], x = holds[i][1];
+          drawBox(y, x, 'red', 4);
+        }
+    }
+    
+    {% include "js/drawboxes.js" %}
+  </script>
 {% endblock %}

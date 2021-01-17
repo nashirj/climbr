@@ -20,8 +20,15 @@ This project is based off of the [palletsprojects Flask tutorial](https://flask.
 - get opencv working on heroku (https://stackoverflow.com/questions/49469764/how-to-use-opencv-with-heroku)
 - figure out how to fix climbr-pro so that app can be deployed there
 - fix climbr so that edit doesn't show if the user didn't post that posting
+- add feature to upload/download route data
 
-- include new javascript code on create and view pages
+
+- add color coding for start
+
+
+
+## DO THIS TODAY
+- include new javascript code (drawboxes and stringify) on create and view pages
 	- https://stackoverflow.com/questions/4855430/how-can-i-send-a-variable-to-a-form-using-this-javascript-function
 	- https://stackoverflow.com/questions/11178426/how-can-i-pass-data-from-flask-to-javascript-in-a-template
-- add feature to upload/download route data
+    - https://stackoverflow.com/questions/33355159/how-can-i-dynamically-render-images-from-my-images-folder-using-jinja-and-flask

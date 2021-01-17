@@ -49,3 +49,8 @@ button {
 .wall-holds > input[type=checkbox][disabled]{
   opacity:0.5;
 }
+
+
+canvas, select {
+  margin-bottom: 10px;
+}
